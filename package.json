@@ -1,0 +1,40 @@
+{
+  "name": "seed-scout",
+  "version": "0.0.0",
+  "description": "CSS auditor",
+  "main": "index.js",
+  "scripts": {
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helpscout/seed-scout.git"
+  },
+  "authors": [
+    "ItsJonQ <itsjonq@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/helpscout/seed-scout/issues"
+  },
+  "keywords": [
+    "audit",
+    "css",
+    "design",
+    "functional",
+    "helper",
+    "itcss",
+    "modular",
+    "mocha",
+    "oocss",
+    "performance",
+    "seed",
+    "scss",
+    "scout",
+    "test",
+    "testing"
+  ],
+  "engines": {
+    "node": ">=4"
+  }
+}
