@@ -36,5 +36,10 @@
   ],
   "engines": {
     "node": ">=4"
+  },
+  "dependencies": {
+    "csslint": "1.0.5",
+    "seed-barista": "0.2.3",
+    "stylelint": "7.9.0"
   }
 }
