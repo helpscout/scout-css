@@ -2,6 +2,7 @@
   <h1>Scout</h1>
   <p>Currently auditing: <code>styles.css</code> from <a href="https://secure.helpscout.net">https://secure.helpscout.net</a></p>
   <p><small>Max Results: {{ results.length }}</small></p>
+  <p><small><strong>Note:</strong> <a href="https://imperavi.com/redactor/" target="_blank">Redactor</a> styles have been omitted.</small></p>
 </div>
 <div id="results-list" class="u-mrg-v-5">
 {{#if results}}
@@ -17,7 +18,7 @@
           <div class="o-flexy__block">
             <code style="background: none; padding: 0;" class="name">{{result.selector}}</code>
           </div>
-          <div class="o-flexy__item u-mrg-l-3">
+          <div class="o-flexy__item tx-lh-reset u-mrg-l-3">
             {{#if result.isSuperBad}}
               💀 <span class="c-badge is-error">Holy Moly!!!</span>
             {{/if}}
@@ -37,10 +38,12 @@
         </div>
       </a>
       <div id="entry-{{@index}}" class="c-card__block u-d-none" data-selector="{{result.selector}}">
-        <strong>Warnings</strong><br>
+        <strong>Warnings</strong>: {{ result.warnings.length }}
+        <hr>
+        <div class="u-mrg-b-1"><strong>Selectors</strong></div>
         <ul class="c-list c-list--bullet">
-        {{#each result.warnings as |warning|}}
-          <li><code>Line: {{warning.line}}</code> <code>{{warning.text}}</code></li>
+        {{#each result.selectors as |selector|}}
+          <li><code>{{selector}}</code></li>
         {{/each}}
         </ul>
       </div>

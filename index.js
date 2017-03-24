@@ -23,7 +23,10 @@ const config = {
   rules: {
     'selector-max-compound-selectors': 3,
     'selector-max-specificity': '0,4,1',
-    // 'selector-no-id': true,
+    'selector-no-id': true,
+    'selector-no-combinator': true,
+    'selector-no-qualifying-type': true,
+    'selector-no-type': true,
   }
 };
 
@@ -87,8 +90,10 @@ Audit.prototype.getResults = function() {
       } else if(severity.length > 0) {
         priority = 1;
       }
+      const selectors = r.split(',');
       const entry = {
         selector: r,
+        selectors: selectors,
         warnings: this.results[r],
         priority: priority,
         isSuperBad: priority === 4,
@@ -118,7 +123,11 @@ const lint = function(callback) {
 app.get('/', (req, res) => {
   return lint(data => {
     const r = data.getResults();
-    return res.render('index', { results: data.getResults().slice(0, 300) });
+    return res.render('index', {
+      results: data.getResults().slice(0, 300).filter(r => {
+        return !r.selector.includes('redactor');
+      })
+    });
   });
 });
 
