@@ -1,30 +1,36 @@
 // Seed Scout
 'use strict';
 
-var barista = require('seed-barista');
-var express = require('express');
-var stylelint = require('stylelint');
-var app = express();
+const barista = require('seed-barista');
+const express = require('express');
+const expressHandleBars = require('express-handlebars');
+const stylelint = require('stylelint');
+const app = express();
 
-var output = barista({
+app.engine('handlebars', expressHandleBars({
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars');
+
+const output = barista({
   src: 'test/css',
   file: 'styles.css',
 });
 
-var config = {
+const config = {
   rules: {
     'selector-max-specificity': '0,4,1',
     // 'selector-no-id': true,
   }
 };
 
-var options = {
+const options = {
   code: output.css,
   // code: 'body, html { background: #321321; } #h .class div { background: #221; }',
   config: config,
 };
 
-var Audit = function(data) {
+const Audit = function(data) {
   this.data = data;
   this.results = {};
   this.initialize();
@@ -36,7 +42,7 @@ Audit.prototype.initialize = function() {
 };
 
 Audit.prototype.getSelector = function(warning) {
-  var type = warning.node.type;
+  const type = warning.node.type;
   if (type === 'rule') {
     return warning.node.selector;
   } else if (type === 'decl') {
@@ -47,7 +53,6 @@ Audit.prototype.getSelector = function(warning) {
 };
 
 Audit.prototype.addToResults = function(warning) {
-  var self = this;
   var selector = this.getSelector(warning);
   if (!selector) {
     return false;
@@ -55,11 +60,11 @@ Audit.prototype.addToResults = function(warning) {
   // selector = selector.split(',').map(function(s) { return s.trim(); });
   // selector = selector.split(', ');
   selector = [selector];
-  selector.forEach(function(sel) {
-    if (!self.results.hasOwnProperty(sel)) {
-      self.results[sel] = [warning];
+  selector.forEach(sel => {
+    if (!this.results.hasOwnProperty(sel)) {
+      this.results[sel] = [warning];
     } else {
-      self.results[sel].push(warning);
+      this.results[sel].push(warning);
     }
   });
   return this;
@@ -67,41 +72,24 @@ Audit.prototype.addToResults = function(warning) {
 
 
 
-var lint = function(callback) {
-  stylelint.lint(options)
-    .then(function(data) {
-      var warnings = data.results[0]._postcssResult.messages;
+const lint = function(callback) {
+  return stylelint.lint(options)
+    .then(data => {
+      const warnings = data.results[0]._postcssResult.messages;
       // console.log(data);
       // console.log(data.output);
-      var a = new Audit(warnings);
-      callback(a);
+      const a = new Audit(warnings);
+      return callback(a);
     });
 };
 
-var express = require('express')
-var app = express();
-
-var render = function(data) {
-  var template = '<ul>';
-  Object.keys(data).forEach(function(d) {
-    template += `<li>${d}</li>`;
-  });
-  template += '</ul>';
-
-  return `<html>
-    <body>
-      ${template}
-    </body>
-  </html>`;
-};
-
-app.get('/', function (req, res) {
-  lint(function(data) {
-    res.send(render(data.results));
+app.get('/', (req, res) => {
+  return lint(data => {
+    return res.render('index', data);
   });
 });
 
-app.listen(3000, function () {
+app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 });
 
