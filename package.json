@@ -4,6 +4,7 @@
   "description": "CSS auditor",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon ./index.js",
     "test": "true",
     "start": "node index.js"
   },
@@ -46,5 +47,8 @@
     "handlebars": "4.0.6",
     "seed-barista": "0.2.3",
     "stylelint": "7.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
   }
 }

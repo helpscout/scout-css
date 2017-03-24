@@ -7,10 +7,12 @@ const expressHandleBars = require('express-handlebars');
 const stylelint = require('stylelint');
 const app = express();
 
-app.engine('handlebars', expressHandleBars({
+app.engine('hbs', expressHandleBars({
   defaultLayout: 'main',
+  extname: '.hbs',
 }));
-app.set('view engine', 'handlebars');
+app.set('view engine', 'hbs');
+app.use(express.static('public'));
 
 const output = barista({
   src: 'test/css',
@@ -19,6 +21,7 @@ const output = barista({
 
 const config = {
   rules: {
+    'selector-max-compound-selectors': 3,
     'selector-max-specificity': '0,4,1',
     // 'selector-no-id': true,
   }
@@ -70,14 +73,43 @@ Audit.prototype.addToResults = function(warning) {
   return this;
 };
 
-
+Audit.prototype.getResults = function() {
+  const results = Object.keys(this.results);
+  return results.reduce((list, r) => {
+      const severity = r.split(' ');
+      let priority = 0;
+      if (severity.length > 5) {
+        priority = 4;
+      } else if(severity.length > 3) {
+        priority = 3;
+      } else if(severity.length > 2) {
+        priority = 2;
+      } else if(severity.length > 0) {
+        priority = 1;
+      }
+      const entry = {
+        selector: r,
+        warnings: this.results[r],
+        priority: priority,
+        isSuperBad: priority === 4,
+        isPrettyBad: priority === 3,
+        isBad: priority === 2,
+        isMild: priority === 1,
+        isLow: priority === 0,
+      };
+      list.push(entry);
+      return list;
+    }, [])
+    .sort((a, b) => {
+      return b.warnings.length - a.warnings.length;
+    }
+  );
+};
 
 const lint = function(callback) {
   return stylelint.lint(options)
     .then(data => {
       const warnings = data.results[0]._postcssResult.messages;
-      // console.log(data);
-      // console.log(data.output);
       const a = new Audit(warnings);
       return callback(a);
     });
@@ -85,7 +117,8 @@ const lint = function(callback) {
 
 app.get('/', (req, res) => {
   return lint(data => {
-    return res.render('index', data);
+    const r = data.getResults();
+    return res.render('index', { results: data.getResults().slice(0, 200) });
   });
 });
 

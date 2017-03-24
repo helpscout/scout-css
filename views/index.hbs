@@ -1,0 +1,45 @@
+<div class="u-mrg-v-6">
+  <h1>Scout</h1>
+  <p>Currently auditing: <code>styles.css</code> from <a href="https://secure.helpscout.net">https://secure.helpscout.net</a></p>
+  <p><small>Max Results: 200</small></p>
+</div>
+<div class="u-mrg-v-5">
+{{#if results}}
+  <div class="c-card">
+  {{#each results as |result|}}
+    <a class="c-card__block u-d-block js-collapse tx-no-underline" href="#entry-{{@index}}" style="color: black;">
+      <div class="o-flexy o-flexy--top">
+        <div class="o-flexy__block">
+          <code style="background: none;">{{result.selector}}</code>
+        </div>
+        <div class="o-flexy__item u-mrg-l-3">
+          {{#if result.isSuperBad}}
+            💀 <span class="c-badge is-error">Holy Moly!!!</span>
+          {{/if}}
+          {{#if result.isPrettyBad}}
+            😵 <span class="c-badge is-error">Super Bad</span>
+          {{/if}}
+          {{#if result.isBad}}
+            😱 <span class="c-badge is-warning">Pretty Bad</span>
+          {{/if}}
+          {{#if result.isMild}}
+            😰 <span class="c-badge is-warning">Bad</span>
+          {{/if}}
+          {{#if result.isLow}}
+            😓 <span class="c-badge is-warning">Less Bad</span>
+          {{/if}}
+        </div>
+      </div>
+    </a>
+    <div id="entry-{{@index}}" class="c-card__block u-d-none" data-selector="{{result.selector}}">
+      <strong>Warnings</strong><br>
+      <ul class="c-list c-list--bullet">
+      {{#each result.warnings as |warning|}}
+        <li><code>Line: {{warning.line}}</code> <code>{{warning.text}}</code></li>
+      {{/each}}
+      </ul>
+    </div>
+  {{/each}}
+  </div>
+{{/if}}
+</div>
