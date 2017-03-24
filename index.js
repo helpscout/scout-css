@@ -118,7 +118,7 @@ const lint = function(callback) {
 app.get('/', (req, res) => {
   return lint(data => {
     const r = data.getResults();
-    return res.render('index', { results: data.getResults().slice(0, 200) });
+    return res.render('index', { results: data.getResults().slice(0, 300) });
   });
 });
 

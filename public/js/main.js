@@ -6,4 +6,8 @@
     var target = $this.attr('href');
     $(target).toggleClass('u-d-none');
   });
+
+  window.resultsList = new List('results-list', { 
+    valueNames: ['name']
+  });
 })(jQuery);
