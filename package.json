@@ -4,7 +4,8 @@
   "description": "CSS auditor",
   "main": "index.js",
   "scripts": {
-    "test": "true"
+    "test": "true",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,9 @@
     "node": ">=4"
   },
   "dependencies": {
+    "body-parser": "1.17.1",
     "csslint": "1.0.5",
+    "express": "4.15.2",
     "seed-barista": "0.2.3",
     "stylelint": "7.9.0"
   }
