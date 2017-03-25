@@ -45,6 +45,7 @@
     "express": "4.15.2",
     "express-handlebars": "3.0.0",
     "handlebars": "4.0.6",
+    "lodash.uniq": "4.5.0",
     "seed-barista": "0.2.3",
     "stylelint": "7.9.0"
   },

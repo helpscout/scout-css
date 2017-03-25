@@ -5,6 +5,7 @@ const barista = require('seed-barista');
 const data = require('./data/styles');
 const express = require('express');
 const expressHandleBars = require('express-handlebars');
+const uniq = require('lodash.uniq');
 const stylelint = require('stylelint');
 const app = express();
 
@@ -97,11 +98,6 @@ Audit.prototype.getResults = function() {
         selectors: selectors,
         warnings: this.results[r].length,
         priority: priority,
-        isSuperBad: priority === 4,
-        isPrettyBad: priority === 3,
-        isBad: priority === 2,
-        isMild: priority === 1,
-        isLow: priority === 0,
       };
       list.push(entry);
       return list;
@@ -115,7 +111,7 @@ Audit.prototype.getResults = function() {
 const groupSelectors = function(data) {
   let map = data.reduce((map, d) => {
     d.selectors.forEach(s => {
-      const prime = s.trim().split(' ')[0];
+      const prime = s.trim().split(' ')[0].split('[')[0];
       const p = prime.replace('.', '_');
 
       if (!map.hasOwnProperty(p)) {
@@ -152,7 +148,7 @@ const scoreSelectors = function(data) {
     } else {
       d.level0 = true;
     }
-    d.selectors = d.selectors.sort();
+    d.selectors = uniq(d.selectors).sort();
     return d;
   });
 };
@@ -167,13 +163,14 @@ const lint = function(callback) {
 };
 
 app.get('/', (req, res) => {
-  res.render('index', { results: scoreSelectors(groupSelectors(data.results).slice(0, 500)) });
+  res.render('index', { results: scoreSelectors(groupSelectors(data.results).slice(0, 250)) });
   // return lint(data => {
   //   const r = data.getResults();
-  //   const results = data.getResults().slice(0, 500).filter(r => {
-  //     return !r.selector.includes('redactor');
+  //   const results = data.getResults().slice(0, 1000).filter(r => {
+  //     return !r.selector.includes('redactor') && !r.selector.includes('html');
   //   });
-  //   res.render('index', { results: results });
+  //   // res.render('index', { results: results });
+  //   res.send({ results: results });
   // });
 });
 
