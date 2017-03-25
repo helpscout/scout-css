@@ -4,12 +4,12 @@
   <p><small>Max Results: {{ results.length }}</small></p>
   <p><small><strong>Note:</strong> <a href="https://imperavi.com/redactor/" target="_blank">Redactor</a> styles have been omitted.</small></p>
 </div>
-<div id="results-list" class="u-mrg-v-5">
+<div class="u-mrg-t-5 u-mrg-b-3">
+  <label>Filter:</label>
+  <input type="text" class="c-input js-search" placeholder="Example: btn-group" />
+</div>
+<div id="results-list">
 {{#if results}}
-  <div class="u-mrg-b-3">
-    <label>Filter:</label>
-    <input type="text" class="c-input fuzzy-search" placeholder="Example: .btn-group" />
-  </div>
   <ul class="list c-list">
   {{#each results as |result|}}
     <li class="c-card u-mrg-b-1">
@@ -55,13 +55,14 @@
           </div>
         </div>
       </a>
-      <div id="entry-{{@index}}" class="c-card__block u-d-none" data-selector="{{result.selector}}">
+      <div id="entry-{{@index}}" class="c-card__block u-d-none js-details" data-selector="{{result.selector}}">
         <div class="u-mrg-b-1"><strong>Selectors:</strong> {{result.selectors.length}}</div>
         <ul class="c-list c-list--bullet">
         {{#each result.selectors as |selector|}}
-          <li><code class="selector">{{selector}}</code></li>
+          <li><code>{{selector}}</code></li>
         {{/each}}
         </ul>
+        <div class="keywords u-d-none">{{result.keywords}}</div>
       </div>
     </li>
   {{/each}}

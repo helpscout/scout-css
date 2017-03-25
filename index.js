@@ -150,6 +150,7 @@ const scoreSelectors = function(data) {
       d.level0 = true;
     }
     d.selectors = uniq(d.selectors).sort();
+    d.keywords = uniq(d.selectors.join('').split(/,| |\.|\>|\#|\:/)).join(' ');
     return d;
   });
 };
