@@ -111,7 +111,8 @@ Audit.prototype.getResults = function() {
 const groupSelectors = function(data) {
   let map = data.reduce((map, d) => {
     d.selectors.forEach(s => {
-      const prime = s.trim().split(' ')[0].split('[')[0];
+      const sels = s.trim().split(' ');
+      const prime = sels[0].split('[')[0];
       const p = prime.replace('.', '_');
 
       if (!map.hasOwnProperty(p)) {
@@ -126,7 +127,7 @@ const groupSelectors = function(data) {
         };
       } else {
         map[p].selectors.push(s);
-        map[p].severity = map[p].severity + (map[p].selectors.length);
+        map[p].severity = map[p].severity + (map[p].selectors.length) + sels.length;
       };
     });
     return map;
