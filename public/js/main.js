@@ -8,6 +8,6 @@
   });
 
   window.resultsList = new List('results-list', { 
-    valueNames: ['name'],
+    valueNames: ['name', 'selector'],
   });
 })(jQuery);

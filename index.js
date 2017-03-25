@@ -2,6 +2,7 @@
 'use strict';
 
 const barista = require('seed-barista');
+const data = require('./data/styles');
 const express = require('express');
 const expressHandleBars = require('express-handlebars');
 const stylelint = require('stylelint');
@@ -94,7 +95,7 @@ Audit.prototype.getResults = function() {
       const entry = {
         selector: r,
         selectors: selectors,
-        warnings: this.results[r],
+        warnings: this.results[r].length,
         priority: priority,
         isSuperBad: priority === 4,
         isPrettyBad: priority === 3,
@@ -106,9 +107,54 @@ Audit.prototype.getResults = function() {
       return list;
     }, [])
     .sort((a, b) => {
-      return b.warnings.length - a.warnings.length;
+      return (b.warnings + b.selectors.length) - (a.warnings + a.selectors.length);
     }
   );
+};
+
+const groupSelectors = function(data) {
+  let map = data.reduce((map, d) => {
+    d.selectors.forEach(s => {
+      const prime = s.trim().split(' ')[0];
+      const p = prime.replace('.', '_');
+
+      if (!map.hasOwnProperty(p)) {
+        let severity = d.warnings;
+        if (prime[0] === '#') {
+          severity = severity * 10;
+        }
+        map[p] = {
+          selector: prime,
+          selectors: [s.trim()],
+          severity: severity,
+        };
+      } else {
+        map[p].selectors.push(s);
+        map[p].severity = map[p].severity + (map[p].selectors.length);
+      };
+    });
+    return map;
+  }, {});
+  map = Object.keys(map).map(k => { return map[k]; });
+  return map.sort((a, b) => { return (b.severity) - (a.severity) });
+};
+
+const scoreSelectors = function(data) {
+  return data.map(d => {
+    if (d.severity > 349) {
+      d.level4 = true;
+    } else if (d.severity > 299) {
+      d.level3 = true;
+    } else if (d.severity > 199) {
+      d.level2 = true;
+    } else if (d.severity > 49) {
+      d.level1 = true;
+    } else {
+      d.level0 = true;
+    }
+    d.selectors = d.selectors.sort();
+    return d;
+  });
 };
 
 const lint = function(callback) {
@@ -121,18 +167,18 @@ const lint = function(callback) {
 };
 
 app.get('/', (req, res) => {
-  return lint(data => {
-    const r = data.getResults();
-    return res.render('index', {
-      results: data.getResults().slice(0, 300).filter(r => {
-        return !r.selector.includes('redactor');
-      })
-    });
-  });
+  res.render('index', { results: scoreSelectors(groupSelectors(data.results).slice(0, 500)) });
+  // return lint(data => {
+  //   const r = data.getResults();
+  //   const results = data.getResults().slice(0, 500).filter(r => {
+  //     return !r.selector.includes('redactor');
+  //   });
+  //   res.render('index', { results: results });
+  // });
 });
 
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!')
+  console.log('http://localhost:3000/')
 });
 
 module.exports = app;
