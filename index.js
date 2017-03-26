@@ -138,7 +138,11 @@ const groupSelectors = function(data) {
 
 const scoreSelectors = function(data) {
   return data.map(d => {
-    if (d.severity > 349) {
+    if (d.severity > 3999) {
+      d.level6 = true;
+    } else if (d.severity > 999) {
+      d.level5 = true;
+    } else if (d.severity > 349) {
       d.level4 = true;
     } else if (d.severity > 299) {
       d.level3 = true;
@@ -146,8 +150,10 @@ const scoreSelectors = function(data) {
       d.level2 = true;
     } else if (d.severity > 49) {
       d.level1 = true;
-    } else {
+    } else if (d.severity > 11) {
       d.level0 = true;
+    } else {
+      d.ok = true;
     }
     d.selectors = uniq(d.selectors).sort();
     d.keywords = uniq(d.selectors.join('').split(/,| |\.|\>|\#|\:/)).join(' ');

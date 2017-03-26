@@ -35,8 +35,14 @@
                 </div>
               </div>
               <div class="o-col-4@sm tx-right@sm tx-lh-reset">
+                {{#if result.level6}}
+                  🔥💀🔥 <span class="c-badge is-error">NO WAY!!!!!!!!</span>
+                {{/if}}
+                {{#if result.level5}}
+                  💀💀 <span class="c-badge is-error">OMG. WUT!!!</span>
+                {{/if}}
                 {{#if result.level4}}
-                  💀 <span class="c-badge is-error">Holy Moly!!!</span>
+                  💀 <span class="c-badge is-error">Holy Moly!!</span>
                 {{/if}}
                 {{#if result.level3}}
                   😵 <span class="c-badge is-error">Super Bad</span>
@@ -49,6 +55,9 @@
                 {{/if}}
                 {{#if result.level0}}
                   😓 <span class="c-badge">It's Fine!!!</span>
+                {{/if}}
+                {{#if result.ok}}
+                  🙂 <span class="c-badge is-success">Not Bad</span>
                 {{/if}}
               </div>
             </div>
