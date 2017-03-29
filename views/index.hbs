@@ -1,80 +1,34 @@
-<div class="u-mrg-v-6">
-  <h1>Scout</h1>
-  <p>Currently auditing: <code>styles.css</code> from <a href="https://secure.helpscout.net">https://secure.helpscout.net</a></p>
-  <p><small>Max Results: {{ results.length }}</small></p>
-  <p><small><strong>Note:</strong> <a href="https://imperavi.com/redactor/" target="_blank">Redactor</a> styles have been omitted.</small></p>
-</div>
-<div class="u-mrg-t-5 u-mrg-b-3">
-  <label>Filter:</label>
-  <input type="text" class="c-input js-search" placeholder="Example: btn-group" />
-</div>
-<div id="results-list">
-{{#if results}}
-  <ul class="list c-list">
-  {{#each results as |result|}}
-    <li class="c-card u-mrg-b-1">
-      <a class="c-card__block u-d-block js-collapse tx-no-underline" href="#entry-{{@index}}" style="color: black;">
-        <div class="o-row">
-          <div class="o-col-5@sm">
-            <code style="background: none;" class="name u-pad-0 u-d-block tx-truncate" title="{{result.selector}}">{{result.selector}}</code>
-          </div>
-          <div class="o-col-7@sm">
-            <div class="o-row">
-              <div class="o-col-8@sm tx-left">
-                <div class="o-row u-op-5">
-                  <div class="o-col-6">
-                    <small>
-                      Selectors: <strong>{{result.selectors.length}}</strong>
-                    </small>
-                  </div>
-                  <div class="o-col-6">
-                    <small>
-                      Severity: <strong>{{result.severity}}</strong>
-                    </small>
-                  </div>
-                </div>
-              </div>
-              <div class="o-col-4@sm tx-right@sm tx-lh-reset">
-                {{#if result.level6}}
-                  🔥💀🔥 <span class="c-badge is-error">NO WAY!!!!!!!!</span>
-                {{/if}}
-                {{#if result.level5}}
-                  💀💀 <span class="c-badge is-error">OMG. WUT!!!</span>
-                {{/if}}
-                {{#if result.level4}}
-                  💀 <span class="c-badge is-error">Holy Moly!!</span>
-                {{/if}}
-                {{#if result.level3}}
-                  😵 <span class="c-badge is-error">Super Bad</span>
-                {{/if}}
-                {{#if result.level2}}
-                  😱 <span class="c-badge is-warning">Really Bad</span>
-                {{/if}}
-                {{#if result.level1}}
-                  😰 <span class="c-badge is-warning">Pretty Bad</span>
-                {{/if}}
-                {{#if result.level0}}
-                  😓 <span class="c-badge">It's Fine!!!</span>
-                {{/if}}
-                {{#if result.ok}}
-                  🙂 <span class="c-badge is-success">Not Bad</span>
-                {{/if}}
-              </div>
-            </div>
-          </div>
+{{> nav }}
+<div class="u-pad-v-10 u-mrg-v-10 o-row">
+  <div class="o-col-8@md o-col-offset-2@md">
+    <div class="u-mrg-b-5">
+      <form class="" action="/parse" enctype="multipart/form-data" method="post" novalidate>
+        <p class="u-op-3 tx-h3 tx-300">
+          Add a URL or a .css link
+        </p>
+        <div class="o-control-group u-mrg-b-2">
+          <input class="c-input c-input--lg o-control-group__block u-pad-h-5"
+            type="url"
+            name="url"
+            value="{{ url }}"
+            placeholder="Example: https://www.helpscout.net/"
+            pattern="[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
+            autofocus>
+          <button class="c-button c-button--lg c-button--primary" type="submit">Audit</button>
         </div>
-      </a>
-      <div id="entry-{{@index}}" class="c-card__block u-d-none js-details" data-selector="{{result.selector}}">
-        <div class="u-mrg-b-1"><strong>Selectors:</strong> {{result.selectors.length}}</div>
-        <ul class="c-list c-list--bullet">
-        {{#each result.selectors as |selector|}}
-          <li><code>{{selector}}</code></li>
-        {{/each}}
-        </ul>
-        <div class="keywords u-d-none">{{result.keywords}}</div>
-      </div>
-    </li>
-  {{/each}}
-  </ul>
-{{/if}}
+      </form>
+    </div>
+    <hr>
+    <h4 class="tx-700">See Results For:</h4>
+    <ul class="c-list">
+      <li>
+        <a href="/results?link=https%3A%2F%2Fdhmmnd775wlnp.cloudfront.net%2F5502bd08f9%2Fcss%2Fstyles.css&title=HS%20App">HS App</a>
+      </li>
+      <li>
+        <a href="/results?url=https%3A%2F%2Fwww.helpscout.net&title=HS%20Marketing">HS Marketing</a>
+      </li>
+    </ul>
+
+  </div>
 </div>
+{{> footer }}
