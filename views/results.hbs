@@ -2,12 +2,12 @@
 <div class="u-mrg-v-6">
   <div class="u-mrg-b-1">
     {{#if title}}
-      <h2><a href="{{source}}" class="tx-h2 tx-700">{{title}}</a></h2>
-      <code>{{source}}</code>
+      <h2 class="tx-h2 tx-700">{{title}}</h2>
+      <a href="{{source}}" target="_blank"><code>{{source}}</code></a>
     {{else}}
       {{#if pageTitle}}
-        <h2><a href="{{source}}" class="tx-h2 tx-700">{{pageTitle}}</a></h2>
-        <code>{{source}}</code>
+        <h2 class="tx-h2 tx-700">{{pageTitle}}</h2>
+        <a href="{{source}}" target="_blank"><code>{{source}}</code></a>
       {{/if}}
     {{/if}}
   </div>
