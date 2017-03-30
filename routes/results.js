@@ -24,6 +24,7 @@ router.get('/', function(req, res) {
       model.source = model.link;
       model.pageTitle = data.pageTitle ? data.pageTitle : false;
       parse(css).then((results) => {
+        console.log(`Audited: ${model.link}`);
         model.results = results.slice(0, 250);
         res.render('results', model);
       });
@@ -34,6 +35,7 @@ router.get('/', function(req, res) {
       model.source = model.url;
       model.pageTitle = data.pageTitle ? data.pageTitle : false;
       parse(css).then((results) => {
+        console.log(`Audited: ${model.url}`);
         model.results = results.slice(0, 250);
         res.render('results', model);
       });
