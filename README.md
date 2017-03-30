@@ -1,6 +1,6 @@
 # Scout
 
-CSS Auditor.
+An auditing tool that helps reveal CSS dragons lurking within your stylesheets.
 
 ## Get Started
 

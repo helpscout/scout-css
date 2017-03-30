@@ -1,7 +1,7 @@
 {
-  "name": "seed-scout",
-  "version": "0.0.0",
-  "description": "CSS auditor",
+  "name": "scout-css",
+  "version": "0.0.1",
+  "description": "CSS auditing tool",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helpscout/seed-scout.git"
+    "url": "git+https://github.com/helpscout/scout-css.git"
   },
   "authors": [
     "ItsJonQ <itsjonq@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helpscout/seed-scout/issues"
+    "url": "https://github.com/helpscout/scout-css/issues"
   },
   "keywords": [
     "audit",
