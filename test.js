@@ -1,8 +1,6 @@
 const getSeverity = require('./lib/getSeverity');
-const threshold = 200000;
 
-const message = (results) => {
-  let threshold = 3000;
+const message = (results, threshold) => {
   console.log(`Tested: ${results.file}`);
   if (results.score > threshold) {
     console.log('🔥 Regression');
@@ -18,9 +16,9 @@ const message = (results) => {
 };
 
 getSeverity('public/css/seed-framework.min.css').then(results => {
-  message(results);
+  message(results, 3000);
 });
 
 getSeverity('public/styles/hs-app.css').then(results => {
-  message(results);
+  message(results, 200000);
 });
