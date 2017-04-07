@@ -2,11 +2,14 @@
   "name": "scout-css",
   "version": "0.0.1",
   "description": "CSS auditing tool",
-  "main": "index.js",
+  "main": "lib/getSeverity.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "dev": "nodemon ./index.js",
+    "dev": "nodemon ./server.js",
     "test": "true",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -40,8 +43,12 @@
     "node": ">=4"
   },
   "dependencies": {
+    "lodash.uniq": "4.5.0",
+    "seed-barista": "0.2.3",
+    "stylelint": "7.9.0"
+  },
+  "devDependencies": {
     "body-parser": "1.17.1",
-    "csslint": "1.0.5",
     "express": "4.15.2",
     "express-handlebars": "3.0.0",
     "formidable": "1.1.1",
@@ -50,13 +57,8 @@
     "is-css": "2.0.0",
     "is-present": "1.0.0",
     "is-url": "1.2.2",
-    "lodash.uniq": "4.5.0",
+    "nodemon": "1.11.0",
     "normalize-url": "1.9.1",
-    "request": "2.81.0",
-    "seed-barista": "0.2.3",
-    "stylelint": "7.9.0"
-  },
-  "devDependencies": {
-    "nodemon": "1.11.0"
+    "request": "2.81.0"
   }
 }
