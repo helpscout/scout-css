@@ -1,5 +1,6 @@
 const getSeverity = require('./lib/getSeverity');
 
+console.log('');
 const message = (results, threshold) => {
   console.log(`Tested: ${results.file}`);
   if (results.score > threshold) {
@@ -10,8 +11,8 @@ const message = (results, threshold) => {
     console.log('  CSS has not gotten worse');
   }
   console.log('Severity:');
-  console.log('  Threshold:', threshold);
-  console.log('  Score:', results.score);
+  console.log('  Threshold:', threshold.toLocaleString());
+  console.log('      Score:', results.score.toLocaleString());
   console.log('');
 };
 
