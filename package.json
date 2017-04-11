@@ -2,9 +2,10 @@
   "name": "scout-css",
   "version": "0.0.1",
   "description": "CSS auditing tool",
-  "main": "lib/getSeverity.js",
+  "main": "index.js",
   "files": [
-    "lib"
+    "lib",
+    "index.js"
   ],
   "scripts": {
     "dev": "nodemon ./server.js",
