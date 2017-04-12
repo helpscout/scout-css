@@ -1,6 +1,6 @@
 {
   "name": "scout-css",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CSS auditing tool",
   "main": "index.js",
   "files": [
