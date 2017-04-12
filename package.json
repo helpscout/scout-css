@@ -3,10 +3,14 @@
   "version": "0.0.1",
   "description": "CSS auditing tool",
   "main": "index.js",
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "scripts": {
-    "dev": "nodemon ./index.js",
+    "dev": "nodemon ./server.js",
     "test": "true",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -40,23 +44,22 @@
     "node": ">=4"
   },
   "dependencies": {
-    "body-parser": "1.17.1",
-    "csslint": "1.0.5",
-    "express": "4.15.2",
-    "express-handlebars": "3.0.0",
-    "formidable": "1.1.1",
     "get-css": "1.2.3",
-    "handlebars": "4.0.6",
-    "is-css": "2.0.0",
-    "is-present": "1.0.0",
-    "is-url": "1.2.2",
     "lodash.uniq": "4.5.0",
-    "normalize-url": "1.9.1",
     "request": "2.81.0",
     "seed-barista": "0.2.3",
     "stylelint": "7.9.0"
   },
   "devDependencies": {
-    "nodemon": "1.11.0"
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "express-handlebars": "3.0.0",
+    "formidable": "1.1.1",
+    "handlebars": "4.0.6",
+    "is-css": "2.0.0",
+    "is-present": "1.0.0",
+    "is-url": "1.2.2",
+    "nodemon": "1.11.0",
+    "normalize-url": "1.9.1"
   }
 }
