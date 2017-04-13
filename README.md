@@ -8,6 +8,9 @@ npm install scout-css --save-dev
 ```
 
 ## Usage
+
+### Node
+
 ```js
 const scout = require('scout-css');
 const cssFile = 'public/css/app.min.css'
@@ -17,6 +20,11 @@ scout(cssFile).then(results => {
 });
 ```
 
+### CLI
+
+```
+$ scout-css check-severity <path/to/css>
+```
 
 ## Development (Web app)
 

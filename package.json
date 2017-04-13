@@ -3,6 +3,9 @@
   "version": "0.0.4",
   "description": "CSS auditing tool",
   "main": "index.js",
+  "bin": {
+    "scout-css": "./cli.js"
+  },
   "files": [
     "lib",
     "index.js"
@@ -20,6 +23,7 @@
     "ItsJonQ <itsjonq@gmail.com>"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/helpscout/scout-css",
   "bugs": {
     "url": "https://github.com/helpscout/scout-css/issues"
   },
@@ -45,8 +49,12 @@
   },
   "dependencies": {
     "get-css": "1.2.3",
+    "glob": "^7.1.1",
+    "is-blank": "^2.1.0",
     "lodash.uniq": "4.5.0",
+    "meow": "^3.7.0",
     "request": "2.81.0",
+    "require-dir": "^0.3.1",
     "seed-barista": "0.3.1",
     "stylelint": "7.9.0"
   },
