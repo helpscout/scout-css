@@ -3,17 +3,16 @@ const fs = require('fs');
 const glob = require('glob');
 const cli = require('../../index');
 const command = cli.input[0];
+const cssPath = cli.input[1];
 const getSeverity = require('../../../lib/getSeverity');
-
-if (command !== 'c' && command !== 'check-severity') { return; }
 
 const printMessage = (results) => {
   console.log('');
-  console.log(`Tested: ${results.file}`);
+  console.log(`Tested: ${results.options.file}`);
   console.log(`Severity Score: ${results.score.toLocaleString()}`);
 };
 
-const cssPath = cli.input[1];
+if (command !== 'c' && command !== 'check-severity') { return; }
 
 if (!cssPath) {
   console.log('You need to specify a path to check for CSS files.');
@@ -25,6 +24,6 @@ const globStr = (fsStats.isDirectory()) ? cssPath + '/**/*.css' : cssPath;
 
 glob(globStr, (er, files) => {
   files.map(file => {
-    getSeverity(file).then(printMessage)
+    getSeverity({src: '/', file}).then(printMessage);
   })
 });
