@@ -1,6 +1,6 @@
 {
   "name": "scout-css",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "CSS auditing tool",
   "main": "index.js",
   "bin": {
@@ -55,7 +55,7 @@
     "meow": "^3.7.0",
     "request": "2.81.0",
     "require-dir": "^0.3.1",
-    "seed-barista": "0.2.3",
+    "seed-barista": "0.3.1",
     "stylelint": "7.9.0"
   },
   "devDependencies": {
