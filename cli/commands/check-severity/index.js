@@ -20,7 +20,7 @@ if (!cssPath) {
 }
 
 const fsStats = fs.statSync(cssPath);
-const globStr = (fsStats.isDirectory()) ? cssPath + '/**/*.css' : cssPath;
+const globStr = (fsStats.isDirectory()) ? cssPath + '/**/*.{css,scss}' : cssPath;
 
 glob(globStr, (er, files) => {
   files.map(file => {
